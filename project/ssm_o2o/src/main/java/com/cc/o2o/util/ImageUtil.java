@@ -9,6 +9,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
@@ -22,40 +23,22 @@ public class ImageUtil {
     private static final Random r = new Random();
 
     /**
-     * 创建缩略图
-     * @param thumbnail
-     * @param targetAddr
+     * 处理缩略图，并返回新生图片的相对值路径
+     * @param thumbnailInputStream
+     * @param targetAddrm
+     * @param fileName
      * @return
      */
-//    public static String generateThumbnail(File thumbnail,String targetAddr){
-//        String realFileName = getRandomFileName();
-//        String extension = getFileExtension(thumbnail);
-//        makeDirPath(targetAddr);
-//        String relativeAddr = targetAddr+realFileName+extension;
-//        logger.debug("current relativeAddr is:"+relativeAddr);
-//        File dest = new File(PathUtil.getImgBasePath()+relativeAddr);
-//        logger.debug("current complete addr is:"+PathUtil.getImgBasePath()+relativeAddr);
-//        try{
-//            Thumbnails.of(thumbnail)
-//                    .size(200,200)
-//                    .watermark(Positions.CENTER_LEFT,ImageIO.read(new File(basePath+"/水印2.jpg")),0.5f)
-//                    .outputQuality(0.8f)
-//                    .toFile(dest);
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
-//        return relativeAddr;
-//    }
-    public static String generateThumbnail(File thumbnail,String targetAddr) throws IOException {
+    public static String generateThumbnail(InputStream thumbnailInputStream, String fileName, String targetAddr) throws IOException {
         String realFileName = getRandomFileName();
-        String extension = getFileExtension(thumbnail);
+        String extension = getFileExtension(fileName);
         makeDirPath(targetAddr);
         String relativeAddr = targetAddr+realFileName+extension;
         logger.debug("current relativeAddr is:"+relativeAddr);
         File dest = new File(PathUtil.getImgBasePath()+relativeAddr);
         logger.debug("current complete addr is:"+PathUtil.getImgBasePath()+relativeAddr);
 
-        Thumbnails.of(thumbnail)
+        Thumbnails.of(thumbnailInputStream)
                 .size(200,200)
                 .watermark(Positions.CENTER_LEFT,ImageIO.read(new File(basePath+"/水印2.jpg")),0.5f)
                 .outputQuality(0.8f)
@@ -79,12 +62,11 @@ public class ImageUtil {
 
     /**
      * 获取输入文件流的扩展名
-     * @param cFile
+     * @param fileName
      * @return
      */
-    private static String getFileExtension(File cFile) {
-        String originalFileName = cFile.getName();
-        return originalFileName.substring(originalFileName.lastIndexOf("."));
+    private static String getFileExtension(String fileName ) {
+        return fileName.substring(fileName.lastIndexOf("."));
 
     }
 

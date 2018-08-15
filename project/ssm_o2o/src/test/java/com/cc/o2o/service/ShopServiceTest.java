@@ -1,4 +1,4 @@
-package com.cc.o2o.service.impl;
+package com.cc.o2o.service;
 
 import com.cc.o2o.BaseTest;
 import com.cc.o2o.dto.ShopExecution;
@@ -13,6 +13,9 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.Date;
 
 import static org.junit.Assert.*;
@@ -34,15 +37,20 @@ public class ShopServiceTest extends BaseTest {
         shop.setOwner(owner)
                 .setArea(area)
                 .setShopCategory(shopCategory)
-                .setShopName("测试的店铺1")
-                .setShopDesc("test1")
-                .setShopAddr("test1")
-                .setPhone("test1")
+                .setShopName("测试的店铺3")
+                .setShopDesc("test3")
+                .setShopAddr("test3")
+                .setPhone("test3")
                 .setCreateTime(new Date())
-                .setEnableStatus(ShopStateEnum.CHECK.getState())
                 .setAdvice("审核中");
         File shopImg = new File(PathUtil.getBasePath()+"/原图.png");
-        ShopExecution se = shopService.addShop(shop, shopImg);
+        InputStream is = null;
+        try {
+            is = new FileInputStream(shopImg);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        ShopExecution se = shopService.addShop(shop, is,shopImg.getName());
         assertEquals(ShopStateEnum.CHECK.getState(),se.getState());
 
     }
