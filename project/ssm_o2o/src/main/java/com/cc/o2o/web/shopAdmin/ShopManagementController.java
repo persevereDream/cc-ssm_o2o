@@ -1,10 +1,14 @@
 package com.cc.o2o.web.shopAdmin;
 
 import com.cc.o2o.dto.ShopExecution;
+import com.cc.o2o.entity.Area;
 import com.cc.o2o.entity.PersonInfo;
 import com.cc.o2o.entity.Shop;
+import com.cc.o2o.entity.ShopCategory;
 import com.cc.o2o.enums.ShopStateEnum;
 import com.cc.o2o.exception.ShopOperationException;
+import com.cc.o2o.service.AreaService;
+import com.cc.o2o.service.ShopCategoryService;
 import com.cc.o2o.service.ShopService;
 import com.cc.o2o.util.HttpServletRequestUtil;
 import com.cc.o2o.util.ImageUtil;
@@ -25,7 +29,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -33,8 +39,31 @@ import java.util.Map;
 public class ShopManagementController {
     @Autowired
     private ShopService shopService;
+    @Autowired
+    private ShopCategoryService shopCategoryService;
+    @Autowired
+    private AreaService areaService;
 
-    @RequestMapping(value = "/register",method = RequestMethod.POST)
+    @RequestMapping(value = "/getshopinitinfo",method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String,Object> getShopInitInfo(){
+        Map<String,Object> modelMap = new HashMap<>();
+        List<ShopCategory> shopCategories = new ArrayList<>();
+        List<Area> areas = new ArrayList<>();
+        try{
+            shopCategories = shopCategoryService.getShopCategoryList(new ShopCategory());
+            areas = areaService.getAreaList();
+            modelMap.put("shopCategoryList",shopCategories);
+            modelMap.put("areaList",areas);
+            modelMap.put("success",true);
+        }catch (Exception e){
+            modelMap.put("success",false);
+            modelMap.put("errMsg",e.getMessage());
+        }
+        return modelMap;
+    }
+
+    @RequestMapping(value = "/registershop",method = RequestMethod.POST)
     @ResponseBody
     private Map<String,Object> registerShop(HttpServletRequest request){
         Map<String,Object> modelMap = new HashMap<>();
