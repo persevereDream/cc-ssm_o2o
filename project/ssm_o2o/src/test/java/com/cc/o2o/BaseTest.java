@@ -1,8 +1,11 @@
 package com.cc.o2o;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * 配置spring和junit整合，junit启动时加载springIOC容器
@@ -11,4 +14,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 //告诉junit Spring配置文件的位置
 @ContextConfiguration({"classpath:spring/spring-dao.xml","classpath:spring/spring-service.xml"})
 public class BaseTest {
+
+    @Test
+    public void testBase(){
+        assertEquals(1,1);
+    }
 }

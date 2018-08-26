@@ -109,6 +109,19 @@
                     </div>
                 </li>
                 <!--验证码 kaptcha-->
+                <li>
+                    <div class="item-content">
+                        <div class="item-media"><i class="icon icon-form-name"></i></div>
+                        <div class="item-inner">
+                            <div class="item-title label">验证码</div>
+                            <input type="text" id="j_captcha" placeholder="验证码">
+                            <div class="item-input">
+                                <img id="captcha_img" title="点击更换" placeholder="点击更换"
+                                onclick="changeVerifyCode(this)" src="../Kaptcha" />
+                            </div>
+                        </div>
+                    </div>
+                </li>
             </ul>
         </div>
         <div class="content-block">
@@ -124,6 +137,7 @@
 <!--如果你用到了拓展包中的组件，还需要引用对应的JS文件-->
 <link rel="stylesheet" href="/resources/css/light7/light7-swiper.min.css">
 <script type='text/javascript' src='/resources/js/light7/light7-swiper.min.js' charset='utf-8'></script>
+<script type="text/javascript" src="/resources/js/commom/common.js" charset="utf-8"></script>
 <script type="text/javascript" src="/resources/js/shop/shopoperation.js" charset="utf-8"></script>
 </body>
 </html>

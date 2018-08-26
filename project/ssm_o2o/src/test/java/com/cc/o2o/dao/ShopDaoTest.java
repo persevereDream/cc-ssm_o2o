@@ -18,13 +18,6 @@ public class ShopDaoTest extends BaseTest {
     @Autowired
     private ShopDao shopDao;
 
-    @Before
-    public void setUp() throws Exception {
-    }
-
-    @After
-    public void tearDown() throws Exception {
-    }
 
     @Test
     public void testInsertShop() {
