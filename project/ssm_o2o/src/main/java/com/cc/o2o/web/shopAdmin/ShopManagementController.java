@@ -66,9 +66,9 @@ public class ShopManagementController {
 
     @RequestMapping(value = "/registershop",method = RequestMethod.POST)
     @ResponseBody
-    private Map<String,Object> registerShop(HttpServletRequest request){
+    public Map<String,Object> registerShop(HttpServletRequest request){
         Map<String,Object> modelMap = new HashMap<>();
-        if(CodeUtil.checkVerifyCode(request)){
+        if(!CodeUtil.checkVerifyCode(request)){
             modelMap.put("success",false);
             modelMap.put("errMsg","输入了错误的验证码");
             return modelMap;

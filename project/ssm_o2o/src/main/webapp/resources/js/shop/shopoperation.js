@@ -38,14 +38,14 @@ $(function () {
             };
             //双重否定 等于 肯定
             shop.area = {
-                shopCategoryId:$('#area').find('option').not(function () {
+                areaId:$('#area').find('option').not(function () {
                     return !this.selected;
                 }).data('id')
             };
-            var shopImg = $('#shop-img')[0].file[0];
+            var shopImg = $('#shop-img')[0].files[0];
             var formData = new FormData();
             formData.append('shopImg',shopImg);
-            formData.append('shopStr',JSON.stringify(shop))
+            formData.append('shopStr',JSON.stringify(shop));
             var verifyCodeActual = $("#j_captcha").val();
             if (!verifyCodeActual) {
                 $.toast("请输入验证码！");
@@ -56,9 +56,9 @@ $(function () {
                 url:registerShopUrl,
                 type:'POST',
                 data:formData,
-                contentType:fase,
-                proceesData:fase,
-                cache:fase,
+                contentType:false,
+                processData:false,
+                cache:false,
                 success:function (data) {
                     if (data.success){
                         $.toast('提交成功!');
