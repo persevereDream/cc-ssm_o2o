@@ -7,10 +7,12 @@ import com.cc.o2o.entity.Shop;
 import com.cc.o2o.entity.ShopCategory;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
+import java.util.Locale;
 
 import static org.junit.Assert.*;
 
@@ -44,6 +46,7 @@ public class ShopDaoTest extends BaseTest {
     }
 
     @Test
+    @Ignore
     public void teatUpdateShop() {
         Shop shop = new Shop();
         shop.setShopId(29L)

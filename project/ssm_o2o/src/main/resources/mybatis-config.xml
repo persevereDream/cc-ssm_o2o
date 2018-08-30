@@ -14,4 +14,8 @@
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
 
+    <plugins>
+        <plugin interceptor="com.cc.o2o.dao.split.DynamicDataSourceInterceptor"></plugin>
+    </plugins>
+
 </configuration>
